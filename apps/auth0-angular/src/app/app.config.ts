@@ -1,10 +1,28 @@
+import { auth0Config, lottieConfig } from '@/core/config';
+import {
+  provideHttpClient,
+  withFetch,
+  withInterceptors,
+} from '@angular/common/http';
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
+import { authHttpInterceptorFn, provideAuth0 } from '@auth0/auth0-angular';
+import {
+  provideCacheableAnimationLoader,
+  provideLottieOptions,
+} from 'ngx-lottie';
+
 import { appRoutes } from './app.routes';
+
+// See https://github.com/auth0/auth0-angular/blob/main/EXAMPLES.md
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideAuth0(auth0Config),
+    provideHttpClient(withFetch(), withInterceptors([authHttpInterceptorFn])),
     provideZoneChangeDetection({ eventCoalescing: true }),
+    provideLottieOptions(lottieConfig),
+    provideCacheableAnimationLoader(),
     provideRouter(appRoutes),
   ],
 };

@@ -2,7 +2,9 @@
   "name": "@auth0-angular-nestjs/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "start:auth0-angular": "nx run auth0-angular:serve "
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~18.2.0",
@@ -18,6 +20,8 @@
     "@nestjs/platform-express": "^10.0.2",
     "@nx/angular": "19.6.0",
     "axios": "^1.6.0",
+    "lottie-web": "^5.12.2",
+    "ngx-lottie": "^12.0.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
@@ -33,6 +37,7 @@
     "@angular/cli": "~18.2.0",
     "@angular/compiler-cli": "~18.2.0",
     "@angular/language-service": "~18.2.0",
+    "@auth0/auth0-angular": "^2.2.3",
     "@nestjs/schematics": "^10.0.1",
     "@nestjs/testing": "^10.0.2",
     "@nx/cypress": "19.6.0",
