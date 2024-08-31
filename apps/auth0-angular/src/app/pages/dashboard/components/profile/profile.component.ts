@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '@auth0/auth0-angular';
+import { AuthService } from '../../../../services/auth';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -17,5 +18,9 @@ export class ProfileComponent {
 
   logout() {
     this.authService.logout();
+  }
+
+  getProfile() {
+    this.authService.profile().pipe(tap(console.log)).subscribe();
   }
 }

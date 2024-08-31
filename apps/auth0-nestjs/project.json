@@ -5,10 +5,31 @@
   "projectType": "application",
   "tags": [],
   "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/auth0-nestjs",
+        "main": "apps/auth0-nestjs/src/main.ts",
+        "tsConfig": "apps/auth0-nestjs/tsconfig.app.json",
+        "assets": [
+          "apps/auth0-nestjs/src/assets"
+        ],
+        "webpackConfig": "apps/auth0-nestjs/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
-      "dependsOn": ["build"],
       "options": {
         "buildTarget": "auth0-nestjs:build",
         "runBuildTargetDependencies": false
