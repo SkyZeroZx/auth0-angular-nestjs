@@ -5,6 +5,10 @@ dist
 tmp
 /out-tsc
 
+#logs
+
+LOG
+
 #environment
 .env
 
