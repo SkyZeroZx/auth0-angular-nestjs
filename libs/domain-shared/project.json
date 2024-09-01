@@ -1,0 +1,21 @@
+{
+  "name": "domain-shared",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/domain-shared/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/domain-shared",
+        "main": "libs/domain-shared/src/index.ts",
+        "tsConfig": "libs/domain-shared/tsconfig.lib.json",
+        "assets": ["libs/domain-shared/*.md"],
+        "generatePackageJson": true,
+        "format": ["cjs"]
+      }
+    }
+  }
+}
