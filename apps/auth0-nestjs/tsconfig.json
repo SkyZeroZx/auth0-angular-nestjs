@@ -1,22 +1,23 @@
 {
-  "extends": "../../tsconfig.base.json",
-  "files": [],
-  "include": [],
-  "references": [
-    {
-      "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.spec.json"
-    }
-  ],
-  "compilerOptions": {
-    "esModuleInterop": true,
-    "baseUrl": ".",
-    "paths": {
-      "@core/*": ["src/app/core/*"],
-      "@/*": ["src/app/modules/*"],
-      "@shared/*": ["src/app/shared/*"]
-    }
-  }
+	"extends": "../../tsconfig.base.json",
+	"files": [],
+	"include": [],
+	"references": [
+		{
+			"path": "./tsconfig.app.json"
+		},
+		{
+			"path": "./tsconfig.spec.json"
+		}
+	],
+	"compilerOptions": {
+		"esModuleInterop": true,
+		"baseUrl": ".",
+		"paths": {
+			"@core/*": ["src/app/core/*"],
+			"@/*": ["src/app/modules/*"],
+			"@shared/*": ["src/app/shared/*"],
+			"@auth0-angular-nestjs/domain-shared": ["../../libs/domain-shared/src/index.ts"]
+		}
+	}
 }
