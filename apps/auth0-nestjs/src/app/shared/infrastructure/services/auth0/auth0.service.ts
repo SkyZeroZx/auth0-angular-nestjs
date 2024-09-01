@@ -1,34 +1,29 @@
-import {
-  AuthenticationClient,
-  ManagementClient,
-  ManagementClientOptionsWithClientCredentials,
-} from 'auth0';
+import { ManagementClient, ManagementClientOptionsWithClientCredentials } from 'auth0';
 
+import { jwtConfig } from '@core/infrastructure/config/environment/jwt';
 import { Injectable, Logger } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { AuthServiceAdapter } from '@shared/domain/adapters/auth';
 
 @Injectable()
 export class Auth0Service implements AuthServiceAdapter {
-  private readonly logger = new Logger(Auth0Service.name);
-  readonly management: ManagementClient;
-  readonly auth: AuthenticationClient;
-  //   public readonly connection = this.config.get<string>('AUTH0_DB_NAME');
-  //   public readonly connectionId = this.config.get<string>('AUTH0_DB_CONNECT_ID');
+	private readonly logger = new Logger(Auth0Service.name);
+	private readonly management: ManagementClient;
 
-  constructor(private readonly config: ConfigService) {
-    this.logger.log('Auth0Service initialized');
-    const managementOptions: ManagementClientOptionsWithClientCredentials = {
-      domain: this.config.get('AUTH0_DOMAIN'),
-      clientId: this.config.get('AUTH0_CLIENT_ID'),
-      clientSecret: this.config.get('AUTH0_CLIENT_SECRET'),
-    };
+	private readonly connectionId = jwtConfig.dbConnectId;
 
-    this.management = new ManagementClient(managementOptions);
-    this.auth = new AuthenticationClient({
-      domain: this.config.get('AUTH0_DOMAIN'),
-      clientId: this.config.get('AUTH0_CLIENT_ID'),
-      clientSecret: this.config.get('AUTH0_CLIENT_SECRET'),
-    });
-  }
+	constructor() {
+		const managementOptions: ManagementClientOptionsWithClientCredentials = {
+			domain: jwtConfig.domain,
+			clientId: jwtConfig.clientId,
+			clientSecret: jwtConfig.clientSecret
+		};
+
+		this.management = new ManagementClient(managementOptions);
+	}
+
+	resetPassword(email: string): Promise<unknown> {
+		this.logger.log({ message: 'Reset Password' }, { data: email });
+
+		return this.management.tickets.changePassword({ email, connection_id: this.connectionId });
+	}
 }
