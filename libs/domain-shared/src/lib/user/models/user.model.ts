@@ -1,9 +1,11 @@
 export class UserProfile {
-	id: number;
+	id: string;
+	email: string;
 	username: string;
-	created: Date;
 }
 
 export class UserModel extends UserProfile {
 	password: string;
 }
+
+export type CreateUser = Omit<UserProfile, 'id'>;
