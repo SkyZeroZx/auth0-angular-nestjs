@@ -1,16 +1,11 @@
 import { Module } from '@nestjs/common';
 import { CREATE_USER_USECASE_PROXY } from './token/user.use-case-proxy';
-import { CreateUserUseCases } from '../../use-cases/create-user/create-user.use-cases';
-import { UserServiceAdapter } from '../../domain';
-import { UserService } from '../services/user.service';
+import { CreateUserUseCases } from '../../usecases/create-user/create-user.usecases';
+import { UserServiceModule } from '../services/user-service.module';
 
 @Module({
-	imports: [],
+	imports: [UserServiceModule],
 	providers: [
-		{
-			provide: UserServiceAdapter,
-			useClass: UserService
-		},
 		{
 			provide: CREATE_USER_USECASE_PROXY,
 			useClass: CreateUserUseCases

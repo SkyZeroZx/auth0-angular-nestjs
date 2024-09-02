@@ -2,7 +2,7 @@ import { ManagementClient, ManagementClientOptionsWithClientCredentials } from '
 
 import { jwtConfig } from '@core/infrastructure/config/environment/jwt';
 import { Injectable, Logger } from '@nestjs/common';
-import { AuthServiceAdapter } from '@shared/domain/adapters/auth';
+import { AuthServiceAdapter } from '@/auth/domain/adapters/auth';
 
 @Injectable()
 export class Auth0Service implements AuthServiceAdapter {
@@ -21,9 +21,13 @@ export class Auth0Service implements AuthServiceAdapter {
 		this.management = new ManagementClient(managementOptions);
 	}
 
-	resetPassword(email: string): Promise<unknown> {
-		this.logger.log({ message: 'Reset Password' }, { data: email });
-
-		return this.management.tickets.changePassword({ email, connection_id: this.connectionId });
+	async resetPassword(email: string): Promise<unknown> {
+		const { data } = await this.management.tickets.changePassword({
+			email,
+			connection_id: this.connectionId
+		});
+		
+		this.logger.log({ message: 'resetPassword', data });
+		return data;
 	}
 }

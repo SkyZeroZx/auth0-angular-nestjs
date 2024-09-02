@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { AuthServiceAdapter } from '@shared/domain/adapters/auth';
+import { AuthServiceAdapter } from '@/auth/domain/adapters/auth';
 
 import { Auth0Service } from './auth0.service';
 
@@ -13,4 +13,4 @@ import { Auth0Service } from './auth0.service';
   ],
   exports: [AuthServiceAdapter],
 })
-export class Auth0Module {}
+export class AuthServiceModule {}

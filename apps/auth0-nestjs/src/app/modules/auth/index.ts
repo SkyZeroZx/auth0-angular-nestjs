@@ -4,4 +4,4 @@ export * from './infrastructure/decorators/auth-role.decorator';
 export * from './infrastructure/decorators/get-user-context.decorator';
 export * from './infrastructure/guards/jwt-auth.guard';
 export * from './infrastructure/strategies/jwt.stragegy';
-export * from './use-cases/auth-info.usecases';
+export * from './usecases/auth-info.usecases';
