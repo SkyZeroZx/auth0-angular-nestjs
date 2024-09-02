@@ -26,7 +26,7 @@ export class Auth0Service implements AuthServiceAdapter {
 			email,
 			connection_id: this.connectionId
 		});
-		
+
 		this.logger.log({ message: 'resetPassword', data });
 		return data;
 	}

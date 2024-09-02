@@ -8,6 +8,7 @@ import { UserService } from './user.service';
 			provide: UserServiceAdapter,
 			useClass: UserService
 		}
-	]
+	],
+	exports : [UserServiceAdapter]
 })
 export class UserServiceModule {}

@@ -26,4 +26,9 @@ export class UserService implements UserServiceAdapter {
 		this.logger.log({ message: 'User created successfully' });
 		return { ...data, id: data.user_id };
 	}
+
+	async getAllUsers(): Promise<unknown> {
+		const { data } = await this.management.users.getAll();
+		return data;
+	}
 }

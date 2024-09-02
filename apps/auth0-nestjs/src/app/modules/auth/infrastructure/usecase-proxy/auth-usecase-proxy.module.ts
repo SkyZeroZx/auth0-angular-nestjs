@@ -10,6 +10,7 @@ import { ResetPasswordUseCases } from "../../usecases/reset-password/reset-passw
 			provide: RESET_PASSWORD_USECASE_PROXY,
             useClass : ResetPasswordUseCases
 		}
-	]
+	],
+	exports : [RESET_PASSWORD_USECASE_PROXY]
 })
 export class AuthUseCaseProxyModule {}
