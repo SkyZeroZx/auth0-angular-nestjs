@@ -1,14 +1,17 @@
+import { GeneratePasswordServiceModule } from '@/auth/infrastructure/services';
+import { UserServiceAdapter } from '@/user/domain';
 import { Module } from '@nestjs/common';
-import { UserServiceAdapter } from '../../domain';
+
 import { UserService } from './user.service';
 
 @Module({
+	imports: [GeneratePasswordServiceModule],
 	providers: [
 		{
 			provide: UserServiceAdapter,
 			useClass: UserService
 		}
 	],
-	exports : [UserServiceAdapter]
+	exports: [UserServiceAdapter]
 })
 export class UserServiceModule {}
