@@ -1,7 +1,6 @@
 export class UserProfile {
 	id: string;
 	email: string;
-	username: string;
 }
 
 export class UserModel extends UserProfile {
