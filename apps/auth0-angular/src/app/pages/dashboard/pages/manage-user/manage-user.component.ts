@@ -13,6 +13,7 @@ import { UserProfile } from '@auth0-angular-nestjs/domain-shared';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CreateUserComponent } from './components/create-user/create-user.component';
+import { UpdateUserComponent } from './components/update-user/update-user.component';
 
 @Component({
 	selector: 'app-manage-user',
@@ -34,7 +35,7 @@ import { CreateUserComponent } from './components/create-user/create-user.compon
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ManageUserComponent implements OnInit {
-	displayedColumns = ['email', 'nickname', 'user_id', 'created_at', 'updated_at'];
+	displayedColumns = ['email', 'nickname', 'user_id', 'created_at', 'updated_at' , 'actions'];
 
 	searchControl = new FormControl<string>('');
 
@@ -72,10 +73,17 @@ export class ManageUserComponent implements OnInit {
 
 	showCreateUser() {
 		const createUserInstance = this.matDialog.open(CreateUserComponent).componentInstance;
-		createUserInstance.created.subscribe(() => this.getUsers());
+		createUserInstance.created.subscribe((user) => this.appendDataSource(user));
 	}
 
-	showUpdate(update: any) {
-		null;
+	private appendDataSource(user: UserProfile) {
+		this.dataSource.data = [...this.dataSource.data, user];
+	}
+
+	showUpdate(userProfile: UserProfile) {
+		const createUserInstance = this.matDialog.open(UpdateUserComponent, {
+			data: userProfile
+		}).componentInstance;
+		createUserInstance.updated.subscribe((user) => this.appendDataSource(user));
 	}
 }

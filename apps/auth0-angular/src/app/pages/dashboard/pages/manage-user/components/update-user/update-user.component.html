@@ -1,0 +1,9 @@
+<h2 class="text-xl font-semibold mb-4" mat-dialog-title>Update User</h2>
+<section mat-dialog-content class="flex flex-col gap-4">
+	<app-user-form [formControl]="updateUserForm" />
+
+	<div class="flex flex-row gap-6">
+		<button mat-flat-button (click)="onUpdate()" [disabled]="updateUserForm.invalid">Update</button>
+		<button mat-button mat-dialog-close>Cancel</button>
+	</div>
+</section>
