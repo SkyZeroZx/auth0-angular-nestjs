@@ -1,4 +1,4 @@
-import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { debounceTime, delay, distinctUntilChanged } from 'rxjs';
 
 import { UserService } from '@/services/user';
 import { ChangeDetectionStrategy, Component, inject, OnInit, viewChild } from '@angular/core';
@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CreateUserComponent } from './components/create-user/create-user.component';
 import { UpdateUserComponent } from './components/update-user/update-user.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
 	selector: 'app-manage-user',
@@ -35,7 +36,7 @@ import { UpdateUserComponent } from './components/update-user/update-user.compon
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ManageUserComponent implements OnInit {
-	displayedColumns = ['email', 'nickname', 'user_id', 'created_at', 'updated_at' , 'actions'];
+	displayedColumns = ['email', 'nickname', 'user_id', 'created_at', 'updated_at', 'actions'];
 
 	searchControl = new FormControl<string>('');
 
@@ -47,6 +48,7 @@ export class ManageUserComponent implements OnInit {
 
 	private readonly userService = inject(UserService);
 	private readonly matDialog = inject(MatDialog);
+	private readonly snackBar = inject(MatSnackBar);
 
 	ngOnInit(): void {
 		this.getUsers();
@@ -85,5 +87,19 @@ export class ManageUserComponent implements OnInit {
 			data: userProfile
 		}).componentInstance;
 		createUserInstance.updated.subscribe((user) => this.appendDataSource(user));
+	}
+
+	onDelete({ email }: UserProfile) {
+		this.userService.delete(email).subscribe({
+			next: () => {
+				this.removeItemDataSource(email);
+				this.snackBar.open('User deleted successfully');
+			}
+		});
+	}
+
+	private removeItemDataSource(emailToRemove: string) {
+		const updateDataSource = this.dataSource.data.filter(({ email }) => email !== emailToRemove);
+		this.dataSource.data = [...updateDataSource];
 	}
 }

@@ -25,4 +25,8 @@ export class UserService {
 			updateUser
 		);
 	}
+
+	delete(email: string) {
+		return this.http.delete<ResponseFormat<void>>(`${environment.API_URL}/users/${email}`);
+	}
 }
