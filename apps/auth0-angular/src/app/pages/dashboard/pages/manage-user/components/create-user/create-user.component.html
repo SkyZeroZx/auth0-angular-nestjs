@@ -4,15 +4,20 @@
 	<form mat-dialog-content [formGroup]="createUserForm" class="flex flex-col gap-4 w-full">
 		<mat-form-field class="w-full">
 			<mat-label>Email</mat-label>
-			<input class="w-full" matInput placeholder="Email" />
+			<input class="w-full" matInput placeholder="Email" formControlName="email" />
 		</mat-form-field>
 		<mat-form-field class="w-full">
-			<mat-label>Email</mat-label>
-			<input class="w-full" matInput placeholder="Email" />
+			<mat-label>Name</mat-label>
+			<input class="w-full" matInput placeholder="Name" formControlName="name" />
+		</mat-form-field>
+
+		<mat-form-field class="w-full">
+			<mat-label>Family Name</mat-label>
+			<input class="w-full" matInput placeholder="Family Name" formControlName="family_name" />
 		</mat-form-field>
 		<div>
-			<button mat-button>Create</button>
-			<button mat-button>Cancel</button>
+			<button mat-button (click)="onSave()">Create</button>
+			<button mat-button mat-dialog-close>Cancel</button>
 		</div>
 	</form>
 </div>
