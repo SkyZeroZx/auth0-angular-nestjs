@@ -1,6 +1,7 @@
 import { AuthConfig } from '@auth0/auth0-angular';
-import { environment } from '../../../environments/environment';
-export const auth0Config: AuthConfig = {
+import { environment } from '../../../../environments/environment';
+
+ export const auth0Config: AuthConfig = {
   ...environment.auth,
   skipRedirectCallback : false,
   cacheLocation: 'localstorage',

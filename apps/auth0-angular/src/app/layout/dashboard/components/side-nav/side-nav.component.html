@@ -1,0 +1,80 @@
+<mat-sidenav-container class="sidenav-container">
+	<mat-sidenav
+		#drawer
+		class="sidenav"
+		fixedInViewport
+		[attr.role]="isHandset() ? 'dialog' : 'navigation'"
+		[mode]="isHandset() ? 'over' : 'side'"
+		[opened]="isHandset() === false"
+		[class.mat-elevation-z5]="true"
+	>
+		<mat-toolbar style="justify-content: center; margin-top: 1rem">
+			<p>
+				<img
+					src="auth0.svg"
+					alt="Logo Kike Sport"
+					height="50px"
+					width="50px"
+				/>
+			</p>
+		</mat-toolbar>
+
+		<mat-nav-list>
+			@for (panel of expansionPanels; track $index) {
+				<mat-expansion-panel [class.mat-elevation-z0]="true">
+					<mat-expansion-panel-header>
+						<mat-icon [fontIcon]="panel.icon" />
+						<span style="padding-left: 1rem; padding-top: 0.2rem"> {{ panel.header }}</span>
+					</mat-expansion-panel-header>
+					<mat-nav-list>
+						@for (item of panel.items; track $index) {
+							<a mat-list-item [routerLink]="item.link" routerLinkActive="active-link">
+								<span class="inline-flex">
+									<mat-icon [fontIcon]="item.icon" routerLinkActive="active-link" />
+									<div routerLinkActive="active-link" class="text-link">
+										{{ item.text }}
+									</div>
+								</span>
+							</a>
+						}
+					</mat-nav-list>
+				</mat-expansion-panel>
+			}
+		</mat-nav-list>
+	</mat-sidenav>
+	<mat-sidenav-content>
+		<mat-toolbar color="primary" style="z-index: 105">
+			@if (isHandset()) {
+				<button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+					<mat-icon aria-label="Side nav toggle icon" fontIcon="menu" />
+				</button>
+			}
+
+			<span class="toolbar-item-spacer"></span>
+			<button mat-icon-button matTooltip="My Account" [matMenuTriggerFor]="userAccountMenu">
+				<mat-icon fontIcon="account_circle" class="icon-lg" />
+			</button>
+			<mat-menu #userAccountMenu [overlapTrigger]="false" yPosition="below">
+				<mat-nav-list class="nav-list">
+					<span routerLink="/dashboard/profile"> {{ user()?.email }} </span>
+				</mat-nav-list>
+
+				<mat-divider />
+
+				<button mat-menu-item routerLink="/auth/change-password">
+					<mat-icon fontIcon="settings" />
+					<span>Cambiar Contraseña</span>
+				</button>
+
+				<mat-divider />
+				<button mat-menu-item (click)="logOut()">
+					<mat-icon fontIcon="exit_to_app" />
+					Salir
+				</button>
+			</mat-menu>
+		</mat-toolbar>
+		<div class="content">
+			<router-outlet></router-outlet>
+		</div>
+	</mat-sidenav-content>
+</mat-sidenav-container>

@@ -13,8 +13,9 @@
     "baseUrl": ".",
     "lib": ["ES2022", "dom", "DOM.Iterable"],
     "paths": {
-      "@/*": ["src/app/*"]
-    }
+			"@/*": ["src/app/*"],
+			"@auth0-angular-nestjs/domain-shared": ["../../libs/domain-shared/src/index.ts"]
+		}
   },
   "files": [],
   "include": [],

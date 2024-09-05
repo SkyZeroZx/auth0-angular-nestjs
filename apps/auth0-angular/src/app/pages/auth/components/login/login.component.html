@@ -1,2 +1,27 @@
-<p>login works!</p>
-<button (click)="login()">Login</button>
+<main class="flex h-screen">
+	<section
+		class="w-1/2 bg-gradient-to-r from-blue-600 to-blue-400 p-8 text-white flex flex-col justify-center"
+	>
+		<p class="text-lg">
+			Please log in to access all the features. We protect your data with
+			<span class="font-semibold">Auth0</span>.
+		</p>
+		<ul class="mt-6 list-disc pl-4 space-y-2">
+			<li>Secure authentication</li>
+			<li>Data protection to the highest standard</li>
+		</ul>
+	</section>
+
+	<section class="w-1/2 flex items-center justify-center">
+		<div class="w-96 p-8 bg-white shadow-2xl rounded-lg">
+			<img
+				src="https://cdn.auth0.com/styleguide/components/1.0.8/media/logos/img/logo-blue.png"
+				alt="Auth0 Logo"
+				class="w-24 mx-auto mb-6"
+			/>
+			<button (click)="login()" mat-flat-button class="w-full py-3 font-semibold text-white">
+				Log In
+			</button>
+		</div>
+	</section>
+</main>
