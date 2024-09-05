@@ -1,0 +1,15 @@
+<form [formGroup]="userForm" class="flex flex-col gap-4 w-full">
+	<mat-form-field class="w-full">
+		<mat-label>Email</mat-label>
+		<input class="w-full" matInput placeholder="Email" formControlName="email" />
+	</mat-form-field>
+	<mat-form-field class="w-full">
+		<mat-label>Name</mat-label>
+		<input class="w-full" matInput placeholder="Name" formControlName="name" />
+	</mat-form-field>
+
+	<mat-form-field class="w-full">
+		<mat-label>Family Name</mat-label>
+		<input class="w-full" matInput placeholder="Family Name" formControlName="family_name" />
+	</mat-form-field>
+</form>
