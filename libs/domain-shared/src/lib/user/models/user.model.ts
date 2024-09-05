@@ -1,6 +1,8 @@
 export class UserProfile {
 	id: string;
 	email: string;
+	name: string;
+	family_name: string;
 }
 
 export class UserModel extends UserProfile {
@@ -8,3 +10,5 @@ export class UserModel extends UserProfile {
 }
 
 export type CreateUser = Omit<UserProfile, 'id'>;
+
+export type UpdateUser = Partial<UserProfile>;
