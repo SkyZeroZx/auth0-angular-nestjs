@@ -12,8 +12,9 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
 		context: ExecutionContext,
 		status?: unknown
 	) {
-		this.logger.log({ message: 'handleRequest', data: { info, context, status } });
+		this.logger.log({ message: 'handleRequest', data: { info, status } });
 		if (err || !user) {
+			this.logger.warn({ message: 'Jwt Unauthorized', data: { info, status, context } });
 			throw err || new UnauthorizedException('You are not authenticated');
 		}
 		return user;
