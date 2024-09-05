@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
 
-import { UpdateUserUseCases } from '../../usecases';
+import { DeleteUserUseCases, UpdateUserUseCases } from '../../usecases';
 import { CreateUserUseCases } from '../../usecases/create-user/create-user.usecases';
 import { GetAllUsersUseCases } from '../../usecases/get-all-user/get-all-user.usecases';
 import { UserServiceModule } from '../services/user-service.module';
 import {
 	CREATE_USER_USECASE_PROXY,
+	DELETE_USER_USECASE_PROXY,
 	GET_ALL_USER_USECASE_PROXY,
 	UPDATE_USER_USECASE_PROXY
 } from './token/user.use-case-proxy';
@@ -24,8 +25,17 @@ import {
 		{
 			provide: UPDATE_USER_USECASE_PROXY,
 			useClass: UpdateUserUseCases
+		},
+		{
+			provide: DELETE_USER_USECASE_PROXY,
+			useClass: DeleteUserUseCases
 		}
 	],
-	exports: [CREATE_USER_USECASE_PROXY, UPDATE_USER_USECASE_PROXY, GET_ALL_USER_USECASE_PROXY]
+	exports: [
+		CREATE_USER_USECASE_PROXY,
+		UPDATE_USER_USECASE_PROXY,
+		DELETE_USER_USECASE_PROXY,
+		GET_ALL_USER_USECASE_PROXY
+	]
 })
 export class UserCaseProxyModule {}

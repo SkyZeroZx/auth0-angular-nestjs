@@ -4,4 +4,5 @@ export abstract class UserServiceAdapter {
 	abstract create(user: CreateUser): Promise<UserProfile>;
 	abstract getAllUsers(): Promise<unknown>;
 	abstract update(email: string, updateUser: UpdateUser): Promise<UserProfile>;
+	abstract delete(email: string): Promise<void>;
 }

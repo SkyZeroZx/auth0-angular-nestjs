@@ -38,13 +38,27 @@ export class UserService implements UserServiceAdapter {
 	}
 
 	async update(email: string, updateUser: UpdateUser): Promise<UserProfile> {
-		const { data } = await this.management.usersByEmail.getByEmail({ email });
+		const { id } = await this.getUserByEmail(email);
 
-		const { data: userProfile } = await this.management.users.update(
-			{ id: data.at(0).user_id },
-			{ ...updateUser }
-		);
+		const { data: userProfile } = await this.management.users.update({ id }, { ...updateUser });
+		this.logger.log({ message: 'User updated successfully' });
 
 		return { ...userProfile, id: userProfile.user_id };
+	}
+
+	private async getUserByEmail(email: string): Promise<UserProfile> {
+		const { data } = await this.management.usersByEmail.getByEmail({ email });
+
+		const user = data.at(0);
+
+		return { ...user, id: user.user_id };
+	}
+
+	async delete(email: string): Promise<void> {
+		this.logger.log({ message: 'Deleting User', data: email });
+
+		const { id } = await this.getUserByEmail(email);
+
+		await this.management.users.delete({ id });
 	}
 }

@@ -7,25 +7,25 @@ import { PassportStrategy } from '@nestjs/passport';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  private readonly logger = new Logger(JwtStrategy.name);
+	private readonly logger = new Logger(JwtStrategy.name);
 
-  constructor() {
-    super({
-      secretOrKeyProvider: passportJwtSecret({
-        cache: true,
-        rateLimit: true,
-        jwksRequestsPerMinute: 5,
-        jwksUri: jwtConfig.jwksUri,
-      }),
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      audience: jwtConfig.audience,
-      issuer: jwtConfig.issuer,
-      algorithms: jwtConfig.algorithms,
-    });
-  }
+	constructor() {
+		super({
+			secretOrKeyProvider: passportJwtSecret({
+				cache: true,
+				rateLimit: true,
+				jwksRequestsPerMinute: 5,
+				jwksUri: jwtConfig.jwksUri
+			}),
+			jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+			audience: jwtConfig.audience,
+			issuer: jwtConfig.issuer,
+			algorithms: jwtConfig.algorithms
+		});
+	}
 
-  validate(payload: unknown) {
-    this.logger.log({ message: 'Validate JWT ' }, { data: payload });
-    return payload;
-  }
+	validate(payload: unknown) {
+		this.logger.log({ message: 'Validating JWT ', data: payload });
+		return payload;
+	}
 }
