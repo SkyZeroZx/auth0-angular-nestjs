@@ -2,7 +2,7 @@ import { ManagementClient } from 'auth0';
 
 import { GeneratePasswordServiceAdapter } from '@/auth/domain/adapters/generate-password';
 import { UserServiceAdapter } from '@/user/domain';
-import { CreateUser, UserProfile } from '@auth0-angular-nestjs/domain-shared';
+import { CreateUser, UpdateUser, UserProfile } from '@auth0-angular-nestjs/domain-shared';
 import { jwtConfig } from '@core/infrastructure/config/environment/jwt';
 import { Injectable, Logger } from '@nestjs/common';
 
@@ -35,5 +35,16 @@ export class UserService implements UserServiceAdapter {
 	async getAllUsers(): Promise<unknown> {
 		const { data } = await this.management.users.getAll();
 		return data;
+	}
+
+	async update(email: string, updateUser: UpdateUser): Promise<UserProfile> {
+		const { data } = await this.management.usersByEmail.getByEmail({ email });
+
+		const { data: userProfile } = await this.management.users.update(
+			{ id: data.at(0).user_id },
+			{ ...updateUser }
+		);
+
+		return { ...userProfile, id: userProfile.user_id };
 	}
 }
