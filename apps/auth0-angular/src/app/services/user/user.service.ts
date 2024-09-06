@@ -1,6 +1,6 @@
 import { ResponseFormat } from '@/core/interfaces';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { CreateUser, UpdateUser, UserProfile } from '@auth0-angular-nestjs/domain-shared';
 
 import { environment } from '../../../environments/environment';
@@ -9,7 +9,7 @@ import { environment } from '../../../environments/environment';
 	providedIn: 'root'
 })
 export class UserService {
-	constructor(private readonly http: HttpClient) {}
+	private readonly http = inject(HttpClient);
 
 	getAll() {
 		return this.http.get<ResponseFormat<UserProfile[]>>(`${environment.API_URL}/users`);
