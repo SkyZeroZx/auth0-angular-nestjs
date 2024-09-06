@@ -1,7 +1,31 @@
-<p>profile works!</p>
-<pre>
-    {{ user$  | async | json}}
-</pre>
- <button (click)="logout()">logout</button>
+<h2 class="text-xl font-semibold mb-4" mat-dialog-title>User Profile</h2>
+@let userProfile = user();
 
- <button (click)="getProfile()">Profile</button>
+<section mat-dialog-content class="flex flex-col gap-2">
+	<div class="profile-picture">
+		<img [src]="userProfile.picture" alt="User Profile Picture" />
+	</div>
+	<mat-form-field class="profile-field" floatLabel="always">
+		<mat-label>Nickname</mat-label>
+		<input matInput readonly [value]="userProfile.nickname" />
+	</mat-form-field>
+
+	<mat-form-field class="profile-field" floatLabel="always">
+		<mat-label>Email</mat-label>
+		<input matInput readonly [value]="userProfile.email" />
+	</mat-form-field>
+
+	<mat-form-field class="profile-field" floatLabel="always">
+		<mat-label>Email Verified</mat-label>
+		<input matInput readonly value="{{ userProfile.email_verified ? 'Yes' : 'No' }}" />
+	</mat-form-field>
+
+	<mat-form-field class="profile-field" floatLabel="always">
+		<mat-label>Updated At</mat-label>
+		<input matInput readonly [value]="userProfile.updated_at | date: 'short'" />
+	</mat-form-field>
+</section>
+
+<div mat-dialog-actions align="end">
+	<button mat-button mat-dialog-close>Close</button>
+</div>

@@ -2,10 +2,12 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
 import { SideNavOptions } from '@/core/interfaces';
+import { ProfileComponent } from '@/pages/dashboard/pages/profile';
 import { AuthService } from '@/services/auth';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -27,13 +29,15 @@ import { SIDE_NAV_BAR_ROUTES } from './side-navbar-routes';
 		MatMenuModule,
 		MatIconModule,
 		MatListModule,
-		RouterModule
+		RouterModule,
+		MatDialogModule
 	],
 	standalone: true
 })
 export class SideNavComponent {
 	private readonly breakpointObserver = inject(BreakpointObserver);
 	private readonly authService = inject(AuthService);
+	private readonly dialogService = inject(MatDialog);
 	private readonly user$ = this.authService.user$;
 
 	readonly expansionPanels: SideNavOptions[] = SIDE_NAV_BAR_ROUTES;
@@ -53,5 +57,9 @@ export class SideNavComponent {
 
 	logOut() {
 		this.authService.logout();
+	}
+
+	showProfile() {
+		this.dialogService.open(ProfileComponent);
 	}
 }

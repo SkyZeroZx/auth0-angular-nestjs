@@ -12,7 +12,7 @@
 			<p>
 				<img
 					src="auth0.svg"
-					alt="Logo Kike Sport"
+					alt="Log Auth0"
 					height="50px"
 					width="50px"
 				/>
@@ -56,20 +56,20 @@
 			</button>
 			<mat-menu #userAccountMenu [overlapTrigger]="false" yPosition="below">
 				<mat-nav-list class="nav-list">
-					<span routerLink="/dashboard/profile"> {{ user()?.email }} </span>
+					<span  (click)="showProfile()"> {{ user()?.email }} </span>
 				</mat-nav-list>
 
 				<mat-divider />
 
 				<button mat-menu-item routerLink="/auth/change-password">
 					<mat-icon fontIcon="settings" />
-					<span>Cambiar Contraseña</span>
+					<span>Change Password</span>
 				</button>
 
 				<mat-divider />
 				<button mat-menu-item (click)="logOut()">
 					<mat-icon fontIcon="exit_to_app" />
-					Salir
+					Log Out
 				</button>
 			</mat-menu>
 		</mat-toolbar>

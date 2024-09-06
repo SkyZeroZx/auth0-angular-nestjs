@@ -1,26 +1,34 @@
+import { AuthService } from '@/services/auth';
+import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { AuthService } from '../../../../services/auth';
-import { tap } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
-  selector: 'app-profile',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './profile.component.html',
-  styleUrl: './profile.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+	selector: 'app-profile',
+	standalone: true,
+	imports: [
+		MatDialogModule,
+		MatFormFieldModule,
+		MatInputModule,
+		MatIconModule,
+		MatButtonModule,
+		DatePipe
+	],
+	templateUrl: './profile.component.html',
+	styleUrl: './profile.component.scss',
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfileComponent {
-  private readonly authService = inject(AuthService);
+	private readonly authService = inject(AuthService);
 
-  user$ = this.authService.user$;
+	user = toSignal(this.authService.user$);
 
-  logout() {
-    this.authService.logout();
-  }
-
-  getProfile() {
-    this.authService.profile().pipe(tap(console.log)).subscribe();
-  }
+	logout() {
+		this.authService.logout();
+	}
 }
