@@ -1,4 +1,4 @@
-import { debounceTime, delay, distinctUntilChanged } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 import { UserService } from '@/services/user';
 import { ChangeDetectionStrategy, Component, inject, OnInit, viewChild } from '@angular/core';
@@ -86,7 +86,7 @@ export class ManageUserComponent implements OnInit {
 		const createUserInstance = this.matDialog.open(UpdateUserComponent, {
 			data: userProfile
 		}).componentInstance;
-		createUserInstance.updated.subscribe((user) => this.appendDataSource(user));
+		createUserInstance.updated.subscribe(() => this.getUsers());
 	}
 
 	onDelete({ email }: UserProfile) {
